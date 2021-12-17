@@ -6,7 +6,6 @@ const config = merge.smart(common, {
     mode: 'development',
     devtool: 'inline-source-map',
     devServer: {
-        host: '10.155.29.93',
         publicPath: '/',
         disableHostCheck: true,
         open: true,
