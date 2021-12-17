@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "webpack-dev-server --hot --inline --config webpack.dev.js",
+    "build": "webpack --config webpack.pro.js",
     "test": "npm test"
   },
   "author": "lih",
