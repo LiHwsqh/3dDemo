@@ -3,6 +3,9 @@ const common = require('./webpack.common');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = merge.smart(common, {
+    output: {
+        filename: '[name].[contenthash:6].js',
+    },
     mode: 'production',
     plugins: [
         new UglifyJsPlugin({

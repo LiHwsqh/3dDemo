@@ -6,7 +6,6 @@ const s = new C3D.Stage();
 s.size("100%", "100%").material({
   color: "#eee"
 }).update();
-document.body.appendChild(s.el);
 
 //创建一个三维容器（创建以方便分组使用）
 const sp = new C3D.Sprite();
@@ -70,21 +69,21 @@ for (let i = 0; i < 4; i++) {
 }
 
 // 视口旋转
-let touchstart = { x: 0, y: 0 };
+let touchstart = { x: 0, y: 0 }
 const SPRotate = {x: 0, y: 0}
 const YBlock = 45
+let interactionStart = false
 
-window.addEventListener('touchstart', function (e) {
-  // e.preventDefault()
-  const { clientX, clientY } = e.touches[ 0 ]
+function onTouchStart (e) {
+  interactionStart = true
+  const { clientX, clientY } = e.touches ? e.touches[ 0 ] : e
   touchstart = {x: clientX, y: clientY}
-})
+}
 
-// 这里触摸事件的x轴偏移要控制y轴旋转量，y轴偏移要控制x轴旋转量
-window.addEventListener('touchmove', function (e) {
-  // e.preventDefault()
+function onTouchMove (e) {
+  if (!interactionStart) { return }
   const {x, y} = touchstart;
-  const { clientX, clientY } = e.touches[ 0 ]
+  const { clientX, clientY } = e.touches ? e.touches[ 0 ] : e
   const dx = clientX - x
   const dy = clientY - y
   let rx = SPRotate.x + dy / 3
@@ -102,35 +101,37 @@ window.addEventListener('touchmove', function (e) {
     }
     p.updateT()
   })
-})
+}
 
-window.addEventListener('touchend', function (e) {
-  // e.preventDefault()
+function onTouchEnd () {
+  interactionStart = false
   SPRotate.x = sp.rotationX;
   SPRotate.y = sp.rotationY
-})
+}
+
+window.addEventListener('touchstart', onTouchStart)
+window.addEventListener('mousedown', onTouchStart)
+
+// 这里触摸事件的x轴偏移要控制y轴旋转量，y轴偏移要控制x轴旋转量
+window.addEventListener('touchmove', onTouchMove)
+window.addEventListener('mousemove', onTouchMove)
+
+window.addEventListener('touchend', onTouchEnd)
+window.addEventListener('mouseup', onTouchEnd)
 
 //响应屏幕调整尺寸
 function resize () {
   s.size(window.innerWidth, window.innerHeight).update();
 }
 window.onresize = resize;
-resize();
 
-//刷新场景
-requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame || window.oRequestAnimationFrame ||
-  function (callback) {
-    setTimeout(callback, 1000 / 60);
-  };
-
-function go () {
-  requestAnimationFrame(go);
-}
-go()
-
-JT.to(s.camera, 2, {
-  z: -500,
-  onUpdate() {
-    s.camera.updateT()
-  }
+window.addEventListener('DOMContentLoaded', () => {
+  document.body.appendChild(s.el);
+  resize();
+  JT.to(s.camera, 2, {
+    z: -500,
+    onUpdate() {
+      s.camera.updateT()
+    }
+  })
 })
