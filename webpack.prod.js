@@ -2,7 +2,6 @@ const merge = require('webpack-merge');
 const path = require('path');
 const common = require('./webpack.common');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const {URL_CDN, IS_NEIBU} = require('./config');
 
 module.exports = merge.smart(common, {
     mode: 'production',
