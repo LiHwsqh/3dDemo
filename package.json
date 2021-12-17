@@ -10,19 +10,16 @@
   },
   "author": "lih",
   "license": "ISC",
-  "dependencies": {
-    "webpack-cli": "^3.3.12",
-    "webpack-dev-server": "^3.11.3",
-    "webpack-merge": "^4.2.2"
-  },
   "devDependencies": {
     "@babel/cli": "^7.16.0",
     "@babel/core": "^7.16.5",
     "@babel/preset-env": "^7.16.5",
     "babel-loader": "^8.2.3",
-    "html-webpack-plugin": "^3.2.0",
-    "mini-css-extract-plugin": "^0.5.0",
+    "html-webpack-plugin": "^5.5.0",
     "uglifyjs-webpack-plugin": "^2.2.0",
-    "webpack": "^4.46.0"
+    "webpack": "^4.46.0",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.3",
+    "webpack-merge": "^4.2.2"
   }
 }
