@@ -2,9 +2,9 @@ const webpack = require('webpack');
 const merge = require('webpack-merge');
 const common = require('./webpack.common');
 
-const config = merge.smart(common, {
+module.exports = merge.smart(common, {
     mode: 'development',
-    devtool: 'inline-source-map',
+    devtool: 'inline-cheap-source-map',
     devServer: {
         publicPath: '/',
         disableHostCheck: true,
@@ -15,11 +15,3 @@ const config = merge.smart(common, {
         new webpack.HotModuleReplacementPlugin()
     ]
 });
-
-config.module.rules.filter(rule => rule.test.test('.css'))[0].use = [
-    'style-loader',
-    'css-loader',
-    'stylus-loader'
-];
-
-module.exports = config;
